@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #100d20;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .Search-box {
+        height: 50vh;
+        width: 50vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #3f3251;
+      }
+      .Search-box div {
+        height: 50%;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+      .Search-box input {
+        height: 40px;
+        width: 100%;
+        outline: none;
+        background-color: #5f4d8684;
+        color: white;
+        outline: none;
+        border-radius: 20px;
+        border: none;
+        font-size: medium;
+        text-align: center;
+      }
+      .Search-box button {
+        height: 40px;
+        width: 100%;
+        border-radius: 10px;
+        border: solid white 1px;
+        color: white;
+        font-size: medium;
+        background-color: #3e2a67;
+      }
+      .img-showcase img{
+        height: 100%;
+        width: 100%;
+      }
+ 
+    </style>
+  </head>
+  <body>
+    <div class="Search-box">
+      <div class="fetch">
+        <input type="text" />
+        <button>Search Flag</button>
+      </div>
+      <div class="img-showcase">
+        <img src="https://flagsapi.com/GN/flat/64.png" alt="" />
+      </div>
+    </div>
+
+    <script>
+      document.querySelector("button").addEventListener("click", () => {
+        const country = document.querySelector("input").value;
+        showFlag(country);
+      });
+
+      document.querySelector("input").addEventListener('keypress',(e)=>{
+          if(e.key === 'Enter'){
+            const country = document.querySelector("input").value;
+            showFlag(country);
+          }
+      })
+
+      async function showFlag(name) {
+        const a = await fetch(`https://flagcdn.com/en/codes.json`);
+        const data = await a.json();
+        console.log(name);
+        for (const key in data) {
+          if (data[key] === name) {
+            document.querySelector(".img-showcase").innerHTML = `<img
+             src="https://flagcdn.com/224x168/${key}.png"
+             width="224"
+             height="168"
+             alt="${data.key}">`;
+            console.log(key);
+            break;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
